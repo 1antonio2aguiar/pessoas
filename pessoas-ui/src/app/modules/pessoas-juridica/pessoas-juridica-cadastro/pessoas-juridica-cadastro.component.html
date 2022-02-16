@@ -1,0 +1,116 @@
+<!-- CTRL + SHIFT + F for pretty -->
+
+ <!-- {{resourceForm.value | json}} -->
+
+<p-panel header="Preencha o Formulario:">
+  <form [formGroup]="resourceForm" (submit)="submitForm()" >
+    <div class="p-grid ui-fluid" style="margin-top: 5px;">
+      <div class="p-col-12 p-md-1 p-lg-1">
+        <label for="nome" >Id</label>
+        <input id="id"
+          type="text"
+          size="10"
+          pInputText formControlName="id"
+          style="font-weight: bold;"
+          disabled="true">
+      </div>
+
+      <div class="p-col-12 p-md-6 p-lg-6">
+        <label for="nome" >Nome</label>
+        <input id="nome" type="text" size="80" pInputText formControlName="nome">
+        <app-form-field-error [form-control]="resourceForm.get('nome')" header-colum="Nome"></app-form-field-error>
+      </div>
+
+      <div class="p-col-12 p-md-2 p-lg-2" formGroupName="dadosPj">
+        <label for="cpf">C.N.P.J</label>
+          <input
+            [imask]="masks"
+            [unmask]="true"
+            id="cnpj"
+            type="text"
+            style="font-weight: bold;"
+            size="15"
+            pInputText formControlName="cnpj">
+      </div>
+
+      <div class="p-col-12 p-md-3 p-lg-3" formGroupName="tiposPessoas">
+        <label for="tipoPessoa" >Tipo pessoa</label>
+        <p-dropdown
+          id="tipoPessoa"
+          name="tipoPessoa"
+          [options]="tipoPessoaList"
+          placeholder="Selecione"
+          [filter]="true"
+          formControlName="id">
+        </p-dropdown>
+      </div>
+
+      <div class="p-col-12 p-md-4 p-lg-4" formGroupName="dadosPj">
+        <label for="tipoEmpresa" >Tipo Empresa</label>
+        <span formGroupName="tiposEmpresas">
+          <p-dropdown
+            id="tipoEmpresaDdw"
+            name="tipoEmpresa"
+            [options]="tipoEmpresasList"
+            placeholder="Selecione"
+            [filter]="true"
+            formControlName="tipoEstabelecimento">
+          </p-dropdown>
+        </span>
+      </div>
+
+      <div class="p-col-12 p-md-4 p-lg-4" formGroupName="dadosPj">
+        <label for="zonaRural">Micro Empresa</label>
+        <p-dropdown id="microEmpresa" name="sexo" formControlName="microEmpresa" placeholder="Selecione" [options]="microEmpresa"></p-dropdown>
+      </div>
+
+      <div class="p-col-12 p-md-4 p-lg-4" formGroupName="situacoes">
+        <label for="situacao" >Situação</label>
+        <p-dropdown
+            id="situacao"
+            name="situacao"
+            [options]="situacaoList"
+            placeholder="Selecione"
+            [filter]="true"
+            formControlName="id">
+          </p-dropdown>
+      </div>
+
+      <div class="p-col-12 p-md-6 p-lg-6" formGroupName="dadosPj">
+        <label for="nome" >Nome Fantasia</label>
+        <input id="nomeFantasia" type="text" size="80" pInputText formControlName="nomeFantasia">
+      </div>
+
+      <div class="p-col-12 p-md-6 p-lg-6" formGroupName="dadosPj">
+        <label for="nome" >Conjuge</label>
+        <input id="conjuge" type="text" size="80" pInputText formControlName="conjuge">
+      </div>
+
+      <div class="p-col-12 p-md-12 p-lg-12" formGroupName="dadosPj">
+        <label for="nome" >Objeto Social</label>
+        <input id="objetoSocial" type="text" size="2000" pInputText formControlName="objetoSocial">
+      </div>
+
+      <div class="p-col-12 p-md-12 p-lg-12">
+        <label for="nome" >Observação</label>
+        <input id="observacao" type="text" size="80" pInputText formControlName="observacao">
+      </div>
+
+    </div>
+
+    <div class="p-grid ui-fluid" style="margin-top: 5px;">
+
+      <div class="p-col-12 p-md-2 p-lg-2">
+          <button pButton type="button" label="Voltar" routerLink="/pessoas-juridica"  class="ui-button-danger"></button>
+        </div>
+
+      <div class="p-col-12 p-md-2 p-lg-2">
+        <button pButton type="button" [disabled]="submittingForm || resourceForm.invalid" type="submit"
+        icon="pi pi-check" label="Salvar" class="ui-button-success"></button>
+      </div>
+
+    </div>
+
+  </form>
+</p-panel>
+

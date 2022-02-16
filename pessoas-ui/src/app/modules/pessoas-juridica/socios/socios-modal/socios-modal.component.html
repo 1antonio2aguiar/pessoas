@@ -1,0 +1,69 @@
+<p-panel [header]="dadosPessoa">
+  <!-- {{resourceForm.value | json}} -->
+
+
+  <form [formGroup]="resourceForm" (submit)="submitForm()">
+    <div class="p-grid ui-fluid" style="margin-top: 5px;">
+
+      <div class="p-col-12 p-md-12 p-lg-12" formGroupName="tiposVinculosSocios">
+        <label for="tipoVinculo" >Tipo Vínculo</label>
+        <p-dropdown
+          id="tipoVinculoSocioDdw"
+          name="tipoVinculoSocio"
+          [options]="tiposVinculosSociosList"
+          placeholder="Selecione"
+          [filter]="true"
+          [disabled]="env.botaoOnOf"
+          formControlName="id">
+          <app-form-field-error [form-control]="resourceForm.get('tiposVinculosSocios')" header-colum="Tipo VÍnculo"></app-form-field-error>
+        </p-dropdown>
+      </div>
+
+      <div class="p-col-12 p-md-7 p-lg-7" formGroupName="pessoas">
+        <label for="pessoa">Pessoa</label>
+        <div class="ui-inputgroup">
+          <button [disabled]="env.botaoOnOf" pButton type="button" label="Buscar" (click)="showPessoas($event)"></button>
+          <input type="text" style="font-weight: bold;" pInputText placeholder="Informe o Sócio"
+            formControlName="nome" disabled="true">
+        </div>
+      </div>
+
+      <div class="p-col-12 p-md-3 p-lg-3" formGroupName="pessoas">
+        <label>Documento</label>
+        <span formGroupName="dadosPessoa">
+          <input id="nome" type="text" style="font-weight: bold;" size="80" pInputText formControlName="documento"
+          disabled="true">
+        </span>
+      </div>
+
+      <div class="p-col-12 p-md-2 p-lg-2">
+        <label for="participacao">Participação</label>
+        <input id="participacao" type="text" size="20" pInputText formControlName="participacao">
+      </div>
+
+    </div>
+
+    <div class="p-grid ui-fluid" style="margin-top: 5px;">
+
+      <div class="p-col-12 p-md-2 p-lg-2">
+        <button pButton
+          type="button"
+          label="Cancelar" class="ui-button-danger"
+          (click)="fecharModal()"
+          >
+        </button>
+      </div>
+
+      <div *ngIf="env.currentActionGlobal != 'DELETE'" class="p-col-12 p-md-2 p-lg-2">
+        <button pButton type="button" [disabled]="submittingForm || resourceForm.invalid" type="submit"
+        icon="pi pi-check" id="btnSalvar" value="Salvar" label="Salvar" class="ui-button-success"></button>
+      </div>
+
+      <div *ngIf="env.currentActionGlobal === 'DELETE'" class="p-col-12 p-md-2 p-lg-2">
+        <button pButton type="button" [disabled]="submittingForm || resourceForm.invalid" type="submit"
+        icon="pi pi-check" id="btnSalvar" value="Salvar" label="Sim" class="ui-button-success"></button>
+      </div>
+    </div>
+  </form>
+
+</p-panel>

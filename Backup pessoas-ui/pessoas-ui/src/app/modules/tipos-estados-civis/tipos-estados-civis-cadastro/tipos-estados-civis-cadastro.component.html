@@ -1,0 +1,40 @@
+<!-- CTRL + SHIFT + F for pretty --><app-bread-crumb [items]="[{label: 'TiposEstadosCivis', routerLink:'/tipos-estados-civis'}, {label: pageTitle}]"></app-bread-crumb>
+
+<div class="margin">
+
+  <p-panel header="Preencha o Formulario:">
+
+    <form [formGroup]="resourceForm" (submit)="submitForm()" >
+
+      <div class="p-grid ui-fluid" style="margin-top: 5px;">
+
+        <div class="p-col-12 p-md-4 p-lg-4">
+            <label for="descricao" >Descrição</label>
+            <input id="descricao" type="text" size="30" pInputText formControlName="descricao">
+            <app-form-field-error [form-control]="resourceForm.get('descricao')" header-colum="Descricao"></app-form-field-error>
+        </div>
+        <div class="p-col-12 p-md-1 p-lg-1">
+            <label for="sigla" >Sigla</label>
+            <input id="sigla" type="text" maxsize="1" pInputText formControlName="sigla">
+            <app-form-field-error [form-control]="resourceForm.get('sigla')" header-colum="Sigla"></app-form-field-error>
+        </div>
+
+      </div>
+
+      <div class="p-grid ui-fluid" style="margin-top: 5px;">
+
+
+          <div class="p-col-12 p-md-2 p-lg-2">
+              <button pButton type="button" label="Voltar" routerLink="/tipos-estados-civis"  class="ui-button-danger"></button>
+            </div>
+
+          <div class="p-col-12 p-md-2 p-lg-2">
+            <button pButton type="button" [disabled]="submittingForm || resourceForm.invalid" type="submit"
+            icon="pi pi-check" label="Salvar" class="ui-button-success"></button>
+          </div>
+
+      </div>
+
+    </form>
+  </p-panel>
+</div>

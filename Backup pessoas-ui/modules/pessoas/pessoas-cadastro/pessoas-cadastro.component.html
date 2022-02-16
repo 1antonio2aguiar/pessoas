@@ -1,0 +1,194 @@
+<!-- CTRL + SHIFT + F for pretty -->
+<app-bread-crumb [items]="[{label: 'Pessoas', routerLink:'/pessoas'}, {label: pageTitle}]"></app-bread-crumb>
+
+<div class="margin">
+
+  <p-panel header="Preencha o Formulario:">
+
+    <!--{{resourceForm.value | json}} -->
+
+    <form [formGroup]="resourceForm" (submit)="submitForm()" >
+
+      <div class="p-grid ui-fluid" style="margin-top: 5px;">
+
+        <div class="p-col-12 p-md-6 p-lg-6">
+	  			<label for="nome" >Nome</label>
+	  			<input id="nome" type="text" size="80" pInputText formControlName="nome">
+  				<app-form-field-error [form-control]="resourceForm.get('nome')" header-colum="Nome"></app-form-field-error>
+			  </div>
+
+        <div class="p-col-12 p-md-2 p-lg-2" formGroupName="dadosPf">
+          <label for="cpf">C.P.F</label>
+            <input
+              [imask]="masks"
+              [unmask]="true"
+              id="cpf"
+              type="text"
+              style="font-weight: bold;"
+              size="15"
+              pInputText formControlName="cpf">
+        </div>
+
+        <div class="p-col-12 p-md-2 p-lg-2">
+          <label for="dataRegistro" >Data Nascimento</label>
+
+          <p-calendar name="dataRegistro" dateFormat="dd/mm/yy" [inline]="false" [readonlyInput]="false"
+              [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030" [showIcon]="false"
+              formControlName="dataRegistro" [locale]="ptBrLocale">
+            </p-calendar>
+        </div>
+
+        <div class="p-col-12 p-md-2 p-lg-2" formGroupName="tiposPessoas">
+            <label for="tipoPessoa" >Tipo pessoa</label>
+            <p-dropdown
+              id="tipoPessoa"
+              name="tipoPessoa"
+              [options]="tipoPessoaList"
+              placeholder="Selecione"
+              [filter]="true"
+              formControlName="id">
+            </p-dropdown>
+        </div>
+
+        <div class="p-col-12 p-md-6 p-lg-6" formGroupName="dadosPf">
+          <label for="localNascimentoList">Local Nascimento</label>
+          <div class="ui-inputgroup" formGroupName="distritos">
+            <!--{{resourceForm.get('dadosLogradouros').get('pessoaVereador').value}} -->
+            <button
+              pButton type="button"
+              label="Buscar"
+              (click)="showLocalNascimento($event)">
+            </button>
+
+            <input type="text" style="font-weight: bold;" pInputText placeholder="Local Nascimento"
+              formControlName="nome" disabled="true">
+          </div>
+        </div>
+
+        <div class="p-col-12 p-md-6 p-lg-6" formGroupName="dadosPf">
+	  			<label for="nome" >Nome Social</label>
+	  			<input id="nomeSocial" type="text" size="80" pInputText formControlName="nomeSocial">
+			  </div>
+
+        <div class="p-col-12 p-md-2 p-lg-2" formGroupName="dadosPf">
+          <label for="zonaRural">Sexo</label>
+          <p-dropdown id="sexo" name="sexo" formControlName="sexo" placeholder="Selecione" [options]="sexo"></p-dropdown>
+        </div>
+
+        <div class="p-col-12 p-md-2 p-lg-2" formGroupName="dadosPf">
+          <label for="estadoCivil" >Estado Cívil</label>
+          <span formGroupName="tiposEstadosCivis">
+            <p-dropdown
+              id="estadoCivil"
+              name="estadoCivil"
+              [options]="estadosCivisList"
+              placeholder="Selecione"
+              [filter]="true"
+              formControlName="id">
+            </p-dropdown>
+          </span>
+        </div>
+
+        <div class="p-col-12 p-md-2 p-lg-2" formGroupName="dadosPf">
+          <label for="raca">Raça</label>
+          <p-dropdown
+            id="raca"
+            name="raca"
+            formControlName="raca"
+            placeholder="Selecione"
+            [options]="raca">
+          </p-dropdown>
+        </div>
+
+        <div class="p-col-12 p-md-2 p-lg-2" formGroupName="dadosPf">
+          <label for="cor">Cor</label>
+          <p-dropdown
+            id="cor"
+            name="cor"
+            formControlName="cor"
+            placeholder="Selecione"
+            [options]="cor">
+          </p-dropdown>
+        </div>
+
+        <div class="p-col-12 p-md-2 p-lg-2" formGroupName="dadosPf">
+          <label for="etnia" >Etnia</label>
+          <span formGroupName="etnias">
+            <p-dropdown
+              id="etnia"
+              name="etnia"
+              [options]="etniaList"
+              placeholder="Selecione"
+              [filter]="true"
+              formControlName="id">
+            </p-dropdown>
+          </span>
+        </div>
+
+        <div class="p-col-12 p-md-2 p-lg-2" formGroupName="dadosPf">
+          <label for="recebeBf">Recebe Bolsa Familia</label>
+          <p-dropdown
+            id="recebeBf"
+            name="recebeBf"
+            formControlName="recebeBf"
+            [options]="recebeBf">
+          </p-dropdown>
+        </div>
+
+        <div class="p-col-12 p-md-6 p-lg-6" formGroupName="dadosPf">
+	  			<label for="nome" >Nome da Mãe</label>
+	  			<input id="nomeMae" type="text" size="80" pInputText formControlName="mae">
+			  </div>
+
+        <div class="p-col-12 p-md-6 p-lg-6" formGroupName="dadosPf">
+	  			<label for="nome" >Nome do Pai</label>
+	  			<input id="nomePai" type="text" size="80" pInputText formControlName="pai">
+			  </div>
+
+        <div class="p-col-12 p-md-9 p-lg-9">
+          <label for="observacao" >Observação</label>
+          <input id="observacao" type="text" size="30" pInputText formControlName="observacao">
+        </div>
+
+        <div class="p-col-12 p-md-1 p-lg-1" formGroupName="dadosPf">
+	  			<label for="nome" >Cartão SUS</label>
+	  			<input id="cartaoSus" type="text" size="80" pInputText formControlName="cartaoSus">
+			  </div>
+
+        <div class="p-col-12 p-md-2 p-lg-2" formGroupName="situacoes">
+          <label for="situacao" >Situação</label>
+          <p-dropdown
+              id="situacao"
+              name="situacao"
+              [options]="situacaoList"
+              placeholder="Selecione"
+              [filter]="true"
+              formControlName="id">
+            </p-dropdown>
+        </div>
+
+      </div>
+
+      <div class="p-grid ui-fluid" style="margin-top: 5px;">
+
+
+          <div class="p-col-12 p-md-2 p-lg-2">
+              <button pButton type="button" label="Voltar" routerLink="/pessoas"  class="ui-button-danger"></button>
+            </div>
+
+          <div class="p-col-12 p-md-2 p-lg-2">
+            <button pButton type="button"  type="submit"
+            icon="pi pi-check" label="Salvar" class="ui-button-success"></button>
+          </div>
+
+          <!--<div class="p-col-12 p-md-2 p-lg-2">
+            <button pButton type="button" [disabled]="submittingForm || resourceForm.invalid" type="submit"
+            icon="pi pi-check" label="Salvar" class="ui-button-success"></button>
+          </div> -->
+
+      </div>
+
+    </form>
+  </p-panel>
+</div>
+

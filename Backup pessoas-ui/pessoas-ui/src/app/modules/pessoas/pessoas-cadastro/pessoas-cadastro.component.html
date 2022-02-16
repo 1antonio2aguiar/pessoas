@@ -1,0 +1,70 @@
+<!-- CTRL + SHIFT + F for pretty --><app-bread-crumb [items]="[{label: 'Pessoas', routerLink:'/pessoas'}, {label: pageTitle}]"></app-bread-crumb>
+
+<div class="margin">
+
+  <p-panel header="Preencha o Formulario:">
+
+    <form [formGroup]="resourceForm" (submit)="submitForm()" >
+
+      <div class="p-grid ui-fluid" style="margin-top: 5px;">
+
+        <div class="p-col-12 p-md-6 p-lg-6">
+	  			<label for="nome" >Nome</label>
+	  			<input id="nome" type="text" size="80" pInputText formControlName="nome">
+  				<app-form-field-error [form-control]="resourceForm.get('nome')" header-colum="Nome"></app-form-field-error>
+			</div>
+
+      <div class="p-col-12 p-md-2 p-lg-2">
+        <label for="cpf">C.P.F</label>
+          <input
+            [imask]="masks"
+            [unmask]="true"
+            id="cpf"
+            type="text"
+            style="font-weight: bold;"
+            size="15"
+            pInputText formControlName="cpf">
+      </div>
+
+      <div class="p-col-12 p-md-2 p-lg-2">
+        <label for="dataRegistro" >Data Nascimento</label>
+
+        <p-calendar name="dataRegistro" dateFormat="dd/mm/yy" [inline]="false" [readonlyInput]="false"
+            [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030" [showIcon]="false"
+            formControlName="dataRegistro" [locale]="ptBrLocale">
+          </p-calendar>
+      </div>
+
+			<div class="p-col-12 p-md-2 p-lg-2" formGroupName="tiposPessoas">
+	  			<label for="tipoPessoa" >Tipo pessoa</label>
+	  			<p-dropdown
+            id="tipoPessoa"
+            name="tipoPessoa"
+            [options]="tipoPessoaList"
+            placeholder="Selecione"
+            [filter]="true"
+            formControlName="id">
+          </p-dropdown>
+      </div>
+
+
+
+      </div>
+
+      <div class="p-grid ui-fluid" style="margin-top: 5px;">
+
+
+          <div class="p-col-12 p-md-2 p-lg-2">
+              <button pButton type="button" label="Voltar" routerLink="/pessoas"  class="ui-button-danger"></button>
+            </div>
+
+          <div class="p-col-12 p-md-2 p-lg-2">
+            <button pButton type="button" [disabled]="submittingForm || resourceForm.invalid" type="submit"
+            icon="pi pi-check" label="Salvar" class="ui-button-success"></button>
+          </div>
+
+      </div>
+
+    </form>
+  </p-panel>
+</div>

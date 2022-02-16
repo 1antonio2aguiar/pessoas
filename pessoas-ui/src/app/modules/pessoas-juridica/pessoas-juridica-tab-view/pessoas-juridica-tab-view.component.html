@@ -1,0 +1,46 @@
+<app-bread-crumb [items]="[{label: 'Pessoas Juridíca', routerLink:'/pessoas-juridica'}, {label: pageTitle}]"></app-bread-crumb>
+
+<div class="p-col-12 text-center">
+  <p-tabView orientation="top" (onChange)="onTabChange($event)">
+
+    <p-tabPanel header="Pessoas Juridíca" [selected]="selectedTab==0">
+      <app-pessoas-juridica-cadastro>
+      </app-pessoas-juridica-cadastro>
+    </p-tabPanel>
+
+    <p-tabPanel id="abaEnderecos" header="Endereços" [selected]="selectedTab==1"
+      [disabled]="env.tabPanelOnOff">
+
+      <app-enderecos-list>
+      </app-enderecos-list>
+
+    </p-tabPanel>
+
+    <p-tabPanel id="abaContatos" header="Contatos" [selected]="selectedTab==2"
+      [disabled]="env.tabPanelOnOff">
+
+      <app-contatos-list>
+      </app-contatos-list>
+
+    </p-tabPanel>
+
+    <p-tabPanel id="abaDocumentos" header="Documentos" [selected]="selectedTab==3"
+      [disabled]="env.tabPanelOnOff">
+
+      <app-documentos-list>
+      </app-documentos-list>
+
+    </p-tabPanel>
+
+    <p-tabPanel id="abaSocios" header="Sócios" [selected]="selectedTab==4"
+      [disabled]="env.tabPanelOnOff">
+
+      <app-socios-list>
+      </app-socios-list>
+
+    </p-tabPanel>
+
+  </p-tabView>
+
+</div>
+

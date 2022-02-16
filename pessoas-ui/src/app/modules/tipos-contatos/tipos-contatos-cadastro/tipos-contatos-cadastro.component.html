@@ -1,0 +1,34 @@
+<!-- CTRL + SHIFT + F for pretty --><app-bread-crumb [items]="[{label: 'TiposContatos', routerLink:'/tipos-contatos'}, {label: pageTitle}]"></app-bread-crumb>
+
+<div class="margin">
+
+  <p-panel header="Preencha o Formulario:">
+
+    <form [formGroup]="resourceForm" (submit)="submitForm()" >
+
+      <div class="p-grid ui-fluid" style="margin-top: 5px;">
+
+			<div class="p-col-12 p-md-6 p-lg-6">
+	  			<label for="descricao" >Descrição</label>
+	  			<input id="descricao" type="text" size="30" pInputText formControlName="descricao">
+  				<app-form-field-error [form-control]="resourceForm.get('descricao')" header-colum="Descricao"></app-form-field-error>
+			</div>
+
+      </div>
+
+      <div class="p-grid ui-fluid" style="margin-top: 5px;">
+
+          <div class="p-col-12 p-md-2 p-lg-2">
+              <button pButton type="button" label="Voltar" routerLink="/tipos-contatos"  class="ui-button-danger"></button>
+            </div>
+
+          <div class="p-col-12 p-md-2 p-lg-2">
+            <button pButton type="button" [disabled]="submittingForm || resourceForm.invalid" type="submit"
+            icon="pi pi-check" label="Salvar" class="ui-button-success"></button>
+          </div>
+
+      </div>
+
+    </form>
+  </p-panel>
+</div>

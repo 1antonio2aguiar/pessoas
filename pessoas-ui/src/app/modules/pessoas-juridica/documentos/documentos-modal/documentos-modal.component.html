@@ -1,0 +1,210 @@
+<p-panel [header]="dadosPessoa">
+
+  <!--{{resourceForm.value | json}} -->
+
+  <form [formGroup]="resourceForm" (submit)="submitForm()">
+    <div class="p-grid ui-fluid" style="margin-top: 5px;">
+
+      <div class="p-col-12 p-md-12 p-lg-12" formGroupName="tiposDocumentos">
+        <label for="tipoDocumento" >Tipo Documento</label>
+        <p-dropdown
+          id="tipoDocumentoDdw"
+          [disabled]="env.botaoOnOf"
+          name="tipoDocumento"
+          [options]="tiposDocumentosList"
+          placeholder="Selecione"
+          formControlName="id"
+          [filter]="true"
+          (onChange)="onChange($event)"
+        >
+        <app-form-field-error [form-control]="resourceForm.get('tiposDocumentos')" header-colum="Tipo Documento"></app-form-field-error>
+        </p-dropdown>
+      </div>
+
+      <div class="p-col-4 p-md-4 p-lg-4">
+        <label for="numeroDocumento">Número Documento</label>
+        <input id="numeroDocumento" type="text" size="10" pInputText
+          formControlName="numeroDocumento"
+          [ngClass]="{'back-disable': isDisabledDoc}"
+        >
+        <app-form-field-error [form-control]="resourceForm.get('numeroDocumento')" header-colum="Numero Documento"></app-form-field-error>
+      </div>
+
+      <div class="p-col-4 p-md-4 p-lg-4">
+        <label for="documentoOrigem">Origem</label>
+        <input id="documentoOrigem" type="text" size="10" pInputText
+          formControlName="documentoOrigem"
+          [ngClass]="{'back-disable': isDisabledRg}"
+        >
+      </div>
+
+      <div class="p-col-4 p-md-4 p-lg-4">
+        <label for="orgaoExpedidor">Orgão Expedidor</label>
+        <input id="orgaoExpedidor" type="text" size="10" pInputText
+          formControlName="orgaoExpedidor"
+          [ngClass]="{'back-disable': isDisabledRg}"
+        >
+      </div>
+
+      <div class="p-col-6 p-md-6 p-lg-6">
+        <label for="zona">Zona</label>
+        <input id="zona" type="text" size="5"
+          pInputText formControlName="zona"
+          [ngClass]="{'back-disable': isDisabledTitEleitor}"
+        >
+      </div>
+
+      <div class="p-col-6 p-md-6 p-lg-6">
+        <label for="secao">Seção</label>
+        <input id="secao" type="text" size="5"
+          pInputText formControlName="secao"
+          [ngClass]="{'back-disable': isDisabledTitEleitor}"
+        >
+      </div>
+
+      <div class="ui-g-12 ui-md-3 ui-fluid">
+        <label for="emissaoCertidao" >Emissão Certidão</label>
+        <p-calendar
+          id="emissaoCertidao"
+          name="emissaoCertidao"
+          dateFormat="dd/mm/yy"
+          [inline]="false"
+          [readonlyInput]="false"
+          [monthNavigator]="true"
+          [yearNavigator]="true"
+          yearRange="1900:2030"
+          [showIcon]="false"
+          formControlName="emissaoCertidao"
+          [maxDate]="maxDate"
+          [locale]="ptBrLocale"
+          [ngClass]="{'back-disable': isDisabledCert}"
+        >
+        </p-calendar>
+      </div>
+
+      <div class="p-col-12 p-md-3 p-lg-3">
+        <label for="termo">Termo</label>
+        <input id="termo" type="text" size="5"
+          pInputText formControlName="termo"
+          [ngClass]="{'back-disable': isDisabledCert}"
+        >
+      </div>
+
+      <div class="p-col-12 p-md-3 p-lg-3">
+        <label for="folha">Folha</label>
+        <input id="folha" type="text" size="5"
+          pInputText formControlName="folha"
+          [ngClass]="{'back-disable': isDisabledCert}"
+        >
+      </div>
+
+      <div class="p-col-12 p-md-3 p-lg-3">
+        <label for="livro">Livro</label>
+        <input id="livro" type="text" size="5"
+          pInputText formControlName="livro"
+          [ngClass]="{'back-disable': isDisabledCert}"
+        >
+      </div>
+
+      <div class="ui-g-12 ui-md-3 ui-fluid">
+        <label for="dataDocumento" >Data Documento</label>
+        <p-calendar
+          name="dataDocumento"
+          dateFormat="dd/mm/yy"
+          [inline]="false"
+          [readonlyInput]="false"
+          [monthNavigator]="true"
+          [yearNavigator]="true"
+          yearRange="1900:2030"
+          [showIcon]="false"
+          [maxDate]="maxDate"
+          formControlName="dataDocumento"
+          [locale]="ptBrLocale"
+          [ngClass]="{'back-disable': isDisabledDoc}"
+        >
+        </p-calendar>
+      </div>
+
+      <div class="ui-g-12 ui-md-3 ui-fluid">
+        <label for="dataExpedicao" >Expedição</label>
+        <p-calendar
+          name="dataExpedicao"
+          dateFormat="dd/mm/yy"
+          [inline]="false"
+          [readonlyInput]="false"
+          [monthNavigator]="true"
+          [yearNavigator]="true"
+          yearRange="1900:2030"
+          [showIcon]="false"
+          [maxDate]="maxDate"
+          formControlName="dataExpedicao"
+          [locale]="ptBrLocale"
+          [ngClass]="{'back-disable': isDisabledDoc}"
+        >
+        </p-calendar>
+      </div>
+
+      <div class="ui-g-12 ui-md-3 ui-fluid">
+        <label for="dataPrimeiraCnh" >Primeira CNH</label>
+        <p-calendar
+          name="dataPrimeiraCnh"
+          dateFormat="dd/mm/yy"
+          [inline]="false"
+          [readonlyInput]="false"
+          [monthNavigator]="true"
+          [yearNavigator]="true"
+          yearRange="1900:2030"
+          [showIcon]="false"
+          [maxDate]="maxDate"
+          formControlName="dataPrimeiraCnh"
+          [locale]="ptBrLocale"
+          [ngClass]="{'back-disable': isDisabledCnh}"
+        >
+        </p-calendar>
+      </div>
+
+      <div class="ui-g-12 ui-md-3 ui-fluid">
+        <label for="dataValidadeCnh" >Validade CNH</label>
+        <p-calendar
+          name="dataValidadeCnh"
+          dateFormat="dd/mm/yy"
+          [inline]="false"
+          [readonlyInput]="false"
+          [monthNavigator]="true"
+          [yearNavigator]="true"
+          yearRange="1900:2050"
+          [showIcon]="false"
+          formControlName="dataValidadeCnh"
+          [locale]="ptBrLocale"
+          [ngClass]="{'back-disable': isDisabledCnh}"
+        >
+        </p-calendar>
+      </div>
+
+    </div>
+
+    <div class="p-grid ui-fluid" style="margin-top: 5px;">
+
+      <div class="p-col-12 p-md-2 p-lg-2">
+        <button pButton
+          type="button"
+          label="Cancelar" class="ui-button-danger"
+          (click)="fecharModal()"
+          >
+        </button>
+      </div>
+
+      <div *ngIf="env.currentActionGlobal != 'DELETE'" class="p-col-12 p-md-2 p-lg-2">
+        <button pButton type="button" [disabled]="submittingForm || resourceForm.invalid" type="submit"
+        icon="pi pi-check" id="btnSalvar" value="Salvar" label="Salvar" class="ui-button-success"></button>
+      </div>
+
+      <div *ngIf="env.currentActionGlobal === 'DELETE'" class="p-col-12 p-md-2 p-lg-2">
+        <button pButton type="button" [disabled]="submittingForm || resourceForm.invalid" type="submit"
+        icon="pi pi-check" id="btnSalvar" value="Salvar" label="Sim" class="ui-button-success"></button>
+      </div>
+
+    </div>
+  </form>
+</p-panel>
+
