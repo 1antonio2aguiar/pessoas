@@ -86,7 +86,7 @@ export class SociosModalComponent extends BaseResourceFormComponent<EmpresasPess
         nome: [null],
       }),
 
-      participacao: [null],
+      participacao: [0],
 
     })
   }

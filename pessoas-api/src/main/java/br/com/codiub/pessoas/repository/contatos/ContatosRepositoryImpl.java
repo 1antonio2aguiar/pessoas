@@ -52,6 +52,7 @@ public class ContatosRepositoryImpl implements ContatosRepositoryQuery{
 		
 		// CONTATO ID
 		if(contatosFilter.getId() != null) {
+			//System.err.println("OLHA ONDE ELE VÊIO !! " );
 			predicates.add(builder.equal(root.get(Contatos_.ID), contatosFilter.getId()));
 		}
 		

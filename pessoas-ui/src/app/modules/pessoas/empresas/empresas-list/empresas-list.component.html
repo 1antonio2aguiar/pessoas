@@ -29,14 +29,19 @@
               {{empresas.id}}
             </td>
             <td>
-              {{empresas.tiposVinculos.descricao}}
+              {{empresas.tiposVinculosEmpresas.descricao}}
             </td>
             <td>
-              {{empresas.pessoas.nome}}
+              {{empresas.pessoasEmpresas.nome}}
             </td>
 
             <td>
-              {{empresas.pessoas.cnpj}}
+              <span *ngIf="empresas.pessoasEmpresas.fisicaJuridica === 'J'">
+                {{empresas.pessoasEmpresas.dadosPjGeral.cnpj | cnpj}}
+              </span>
+              <!--<span *ngIf="empresas.pessoasPessoas.fisicaJuridica === 'F'">
+                {{empresas.pessoasEmpresas.dadosPfGeral.cpf | cpf}}
+              </span> -->
             </td>
 
             <td class="col-acoes">

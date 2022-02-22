@@ -21,6 +21,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.query.QueryUtils;
 import org.springframework.util.StringUtils;
 
+import br.com.codiub.pessoas.entity.Contatos_;
 import br.com.codiub.pessoas.entity.EmpresasPessoas;
 import br.com.codiub.pessoas.entity.EmpresasPessoas_;
 import br.com.codiub.pessoas.filter.EmpresasPessoasFilter;
@@ -53,8 +54,10 @@ public class EmpresasPessoasRepositoryImpl implements EmpresasPessoasRepositoryQ
 		
 		// ID
 	    if (empresasPessoasFilter.getId() != null) {
+	    	//System.err.println("OLHA ONDE ELE VÊIO !!  EP" );
 	      predicates.add(builder.equal(root.get(EmpresasPessoas_.ID), empresasPessoasFilter.getId()));
 	    }
+	    
 	    
 	    // NOME DA EMPRESA
 	    /*if (StringUtils.hasLength(empresasPessoasFilter.getPessoasGeralFilter().getNome())) {

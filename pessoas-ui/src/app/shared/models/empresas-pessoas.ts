@@ -17,5 +17,4 @@ export class EmpresasPessoas extends BaseResourceModel {
   static fromJson(jsonData: any): EmpresasPessoas {
     return Object.assign(new EmpresasPessoas(), jsonData);
   }
-
 }

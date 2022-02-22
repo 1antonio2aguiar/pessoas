@@ -1,3 +1,4 @@
+import { DadosPf } from './../../../../shared/models/dados-pf';
 import { Component, Injector, Input, Output, EventEmitter } from '@angular/core';
 import { BaseResourceFormComponent } from 'src/app/shared/components/base-resource-form/base-resource-form.component';
 import { MessageService} from 'primeng/api';
@@ -49,10 +50,10 @@ export class EmpresasModalComponent extends BaseResourceFormComponent<EmpresasPe
     this.loadTipoVinculo();
     this.buildResourceForm(); /*limpa o formulario/resourceForm */
 
-    if (this.env.currentActionGlobal != "DELETE"){
-      this.env.botaoOnOf = false;
-    } else {
+    if (this.env.currentActionGlobal == "DELETE" || this.env.currentActionGlobal == "EDIT"){
       this.env.botaoOnOf = true;
+    } else {
+      this.env.botaoOnOf = false;
     }
 
   }
@@ -60,24 +61,31 @@ export class EmpresasModalComponent extends BaseResourceFormComponent<EmpresasPe
   protected buildResourceForm() {
     this.resourceForm = this.formBuilder.group({
       id: [null],
-      pessoa: [(<HTMLSelectElement>document.getElementById('id')).value],
-      empresa:[null, [Validators.required, Validators.minLength(5)]],
+      idPessoa: [(<HTMLSelectElement>document.getElementById('id')).value],
+      idEmpresa:[null, [Validators.required, Validators.minLength(5)]],
+      participacao: [0],
 
-      tiposVinculos:
+      tiposVinculosEmpresas:
         this.formBuilder.group({
         id: [null, [Validators.required]],
         descricao:[null],
       }),
 
-      pessoas: this.formBuilder.group({
-        dadosPessoa: this.formBuilder.group({
-          cpfCnpj: [null],
+      idEmpresas: this.formBuilder.group({
+        dadosPj: this.formBuilder.group({
+          cnpj: [null],
         }),
         id: [null, [Validators.required]],
         nome: [null],
       }),
 
-      usuario: JSON.parse(sessionStorage.getItem("usuario")).nome,
+      idPessoas: this.formBuilder.group({
+        dadosPf: this.formBuilder.group({
+            cpf: [(<HTMLSelectElement>document.getElementById('cpf')).value],
+          }),
+        id: [(<HTMLSelectElement>document.getElementById('id')).value],
+        nome: [(<HTMLSelectElement>document.getElementById('nome')).value],
+      })
     })
   }
 
@@ -170,15 +178,15 @@ export class EmpresasModalComponent extends BaseResourceFormComponent<EmpresasPe
       }
 
       this.resourceForm.patchValue({
-        pessoas: {
+        idEmpresas: {
           id: pessoa.id,
           nome: pessoa.nome,
 
-          dadosPessoa:{
-              cpfCnpj: this.cpfCnpj
+          dadosPj:{
+              cnpj: this.cpfCnpj
           }
         },
-        empresa: pessoa.id,
+        idEmpresa: pessoa.id,
       });
     });
   }
@@ -186,18 +194,47 @@ export class EmpresasModalComponent extends BaseResourceFormComponent<EmpresasPe
   // No edit retorna os dados aqui.
   ngOnInit(){
     this.empresasService.empresasEditSubscribeId(
-      resources => {
-        this.empresaId = resources.id
-        this.resourceForm.patchValue({
-          tiposVinculosEmpresas:{
-            id: resources.tiposVinculosEmpresas.id,
-            descricao: resources.tiposVinculosEmpresas.descricao
-          },
-          id: resources.id,
-          nome: resources.idEmpresa
-        })
+
+    resources => {
+
+      this.empresaId = resources.id;
+
+      if (resources.pessoasEmpresas.fisicaJuridica ===  'J'){
+        this.cpfCnpj = resources.pessoasEmpresas.dadosPjGeral.cnpj.toString();
+        this.cpfCnpj = this.cpfCnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5")
       }
-    )
+
+      this.resourceForm.patchValue({
+
+        tiposVinculosEmpresas:{
+          id: resources.tiposVinculosEmpresas.id,
+          descricao: resources.tiposVinculosEmpresas.descricao
+        },
+
+        id: resources.id,
+        participacao: resources.participacao,
+        idEmpresa: resources.pessoasEmpresas.id,
+        idPessoa: resources.pessoasPessoas.id,
+
+        idEmpresas:{
+          id: resources.pessoasEmpresas.id,
+          nome: resources.pessoasEmpresas.nome,
+          dadosPj:{
+            cnpj: this.cpfCnpj,
+          }
+        },
+
+        idPessoas: this.formBuilder.group({
+          dadosPf: this.formBuilder.group({
+              cpf: [(<HTMLSelectElement>document.getElementById('cpf')).value],
+            }),
+          id: [(<HTMLSelectElement>document.getElementById('id')).value],
+          nome: [(<HTMLSelectElement>document.getElementById('nome')).value],
+        })
+
+      })
+
+    })
 
     if(this.env.currentActionGlobal === "DELETE"){
       (<HTMLSelectElement>document.getElementById('tipoContatoDdw')).disabled = true;

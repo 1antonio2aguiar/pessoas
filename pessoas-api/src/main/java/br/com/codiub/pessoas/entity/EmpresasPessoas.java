@@ -37,11 +37,11 @@ public class EmpresasPessoas implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_EMPRESA")
-	private Pessoas pessoasEmpresas;
+	private Pessoas pessoasEmpresas = new Pessoas();
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_PESSOA")
-	private Pessoas pessoasPessoas;
+	private Pessoas pessoasPessoas = new Pessoas();
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "VINCULO")

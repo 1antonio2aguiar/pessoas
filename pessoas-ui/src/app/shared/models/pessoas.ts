@@ -10,6 +10,7 @@ constructor(
     public situacao?: string,
     public tipoPessoa?: number,
     public usuario?: string,
+
   ) {
       super();
   }

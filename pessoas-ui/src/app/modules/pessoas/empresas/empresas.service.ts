@@ -36,7 +36,6 @@ export class EmpresasService extends BaseResourceService<EmpresasPessoas>{
 
   // Busca lista de empresas da pessoa
   listAll(pessoa): Promise<any> {
-    //console.log("ESTA NO SERVICE LIST ALL")
     return this.http.get<EmpresasPessoas[]>(this.apiPath + '/findByIdPessoaId?codigo='+pessoa)
       .toPromise()
       .then(response => {
@@ -48,19 +47,13 @@ export class EmpresasService extends BaseResourceService<EmpresasPessoas>{
     this.empresasEventHendler.subscribe(callBack);
   }
 
-  // Busca empresa por ID
-  buscaEmpresa(pessoaId): Promise<any> {
-    return this.http.get<EmpresasPessoas>(this.apiPath + '/'+pessoaId)
+  // EDITAR EMPRESA - Busca empresa por ID
+  buscaEmpresa(empresaId): Promise<any> {
+    return this.http.get<EmpresasPessoas>(this.apiPath + '/'+empresaId)
       .toPromise()
       .then(response => {
         this.empresasEventHendlerId.emit(response);
     });
-  }
-
-  buscaEmpresaId(empresaId): Promise<any> {
-    //console.log("VAMOS VER SE AQUI ELE VEM!! ", enderecoId)
-    return this.http.get<EmpresasPessoas>(this.apiPath + '/'+empresaId)
-      .toPromise();
   }
 
   empresasEditSubscribeId(callBack:(empresas: EmpresasPessoasOutput) => void){

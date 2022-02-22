@@ -15,6 +15,6 @@ public class EmpresasPessoasInput {
 	TiposVinculosEmpresas tiposVinculosEmpresas = new TiposVinculosEmpresas();
 	
 	PessoasInput idPessoas = new PessoasInput();
-	PessoasInput idEmpresas = new PessoasInput();
+	PessoasJuridicaInput idEmpresas = new PessoasJuridicaInput();
 
 }

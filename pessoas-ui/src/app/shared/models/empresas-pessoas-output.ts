@@ -1,4 +1,4 @@
-import { Pessoas } from './pessoas';
+import PessoasOutput from './pessoas-outputs';
 import { TiposVinculosEmpresas } from './tipos-vinculos-empresas';
 
 export default interface EmpresasPessoasOutput {
@@ -6,9 +6,10 @@ export default interface EmpresasPessoasOutput {
   id?: number,
   participacao?: number,
 
-  idEmpresa: Pessoas,
-  idPessoa: Pessoas,
+  pessoasEmpresas: PessoasOutput,
+  pessoasPessoas: PessoasOutput,
 
   tiposVinculosEmpresas: TiposVinculosEmpresas,
+
 
 }

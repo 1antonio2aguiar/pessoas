@@ -51,13 +51,13 @@ public class ContatosResource {
 	
 	@GetMapping
 	public Page<Contatos> pesquisar(ContatosFilter contatosFilter, Pageable pageable) {
-		System.err.println("OLHA ONDE ELE VÊIO !! " );
+		//System.err.println("OLHA ONDE ELE VÊIO !! NENEM " );
 	    return contatosRepository.filtrar(contatosFilter, pageable);
 	}
 	
 	@GetMapping("/{codigo}")
 	public ResponseEntity<Contatos> buscarPeloCodigo(@PathVariable Long codigo) {
-		//System.err.println("OLHA ONDE ELE VÊIO !! " );
+		//System.err.println("OLHA ONDE ELE VÊIO !! PAPAI " );
 	    Optional<Contatos> contatos = contatosRepository.findById(codigo);
 	    return contatos != null
 	        ? ResponseEntity.ok(contatos.get())
