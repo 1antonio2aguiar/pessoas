@@ -1,3 +1,4 @@
+import { DadosPjGeral } from './../../../../shared/models/dados-pj-geral';
 import { Component, Injector, Input, Output, EventEmitter } from '@angular/core';
 import { MessageService} from 'primeng/api';
 import { BaseResourceFormComponent } from '../../../../shared/components/base-resource-form/base-resource-form.component';
@@ -10,8 +11,8 @@ import { environment } from 'src/environments/environment';
 import { EmpresasPessoas } from 'src/app/shared/models/empresas-pessoas';
 import { TiposVinculosEmpresasService } from 'src/app/modules/tipos-vinculos-empresas/tipos-vinculos-empresas.service';
 import { SociosService } from '../socios.service';
-import { PessoasModalComponent } from './../../../modal/pessoas-modal/pessoas-modal.component';
-import { CepsModalComponent } from 'src/app/modules/ceps/ceps-modal/ceps-modal.component';
+
+import { PessoasEmpresasModalComponent } from 'src/app/modules/pessoas-empresas/pessoas-empresas-modal/pessoas-empresas-modal.component';
 
 @Component({
   selector: 'app-socios-modal',
@@ -29,6 +30,7 @@ export class SociosModalComponent extends BaseResourceFormComponent<EmpresasPess
 
   env = environment;
   socioId = 0;
+  cpfCnpj = '';
 
   masks = {
     mask: [
@@ -38,7 +40,7 @@ export class SociosModalComponent extends BaseResourceFormComponent<EmpresasPess
     ]
   };
 
-  tiposVinculosSociosList: SelectItem[];
+  tiposVinculosEmpresasList: SelectItem[];
 
   //Move os dados da pessoas para o modal de cadastro de socios
   dadosPessoa=(<HTMLSelectElement>document.getElementById('nome')).value +' CNPJ: ' +
@@ -59,31 +61,40 @@ export class SociosModalComponent extends BaseResourceFormComponent<EmpresasPess
     this.loadtipoVinculoSocio();
     this.buildResourceForm(); /*limpa o formulario/resourceForm */
 
-    if (this.env.currentActionGlobal != "DELETE"){
-      this.env.botaoOnOf = false;
-    } else {
+    if (this.env.currentActionGlobal == "DELETE" || this.env.currentActionGlobal == "EDIT"){
       this.env.botaoOnOf = true;
+    } else {
+      this.env.botaoOnOf = false;
     }
-
   }
 
   protected buildResourceForm() {
     this.resourceForm = this.formBuilder.group({
       id: [null],
-      pessoa: [(<HTMLSelectElement>document.getElementById('id')).value],
+      idEmpresa: [(<HTMLSelectElement>document.getElementById('id')).value],
+      idPessoa:[null, [Validators.required, Validators.minLength(5)]],
 
-      tiposVinculosSocios:
+      tiposVinculosEmpresas:
         this.formBuilder.group({
-        descricao:[null],
         id: [null, [Validators.required]],
+        descricao:[null],
       }),
 
-      pessoas: this.formBuilder.group({
-        dadosPessoa: this.formBuilder.group({
-          documento: [null],
+      idPessoas: this.formBuilder.group({
+        dadosPf: this.formBuilder.group({
+          cpfCnpj: [null],
+          cpf: [null],
         }),
-        id: [null, [Validators.required, Validators.minLength(10)]],
+        id: [null, [Validators.required]],
         nome: [null],
+      }),
+
+      idEmpresas: this.formBuilder.group({
+        dadosPj: this.formBuilder.group({
+            cnpj: [(<HTMLSelectElement>document.getElementById('cnpj')).value],
+          }),
+        id: [(<HTMLSelectElement>document.getElementById('id')).value],
+        nome: [(<HTMLSelectElement>document.getElementById('nome')).value],
       }),
 
       participacao: [0],
@@ -155,7 +166,7 @@ export class SociosModalComponent extends BaseResourceFormComponent<EmpresasPess
     this.tiposVinculosEmpresasService.listAll()
 
     .then(tiposVinculosSocios => {
-      this.tiposVinculosSociosList = tiposVinculosSocios.map(c =>
+      this.tiposVinculosEmpresasList = tiposVinculosSocios.map(c =>
         ({ value: c.id, label: c.descricao })
       );
     })
@@ -164,54 +175,87 @@ export class SociosModalComponent extends BaseResourceFormComponent<EmpresasPess
 
   // Modal Pessoas
   showPessoas($event) {
-    console.log("ESTA NO SHOWPESSOAS SOCIOS-modal.componensts ")
 
-    const ref = this.dialogService.open(PessoasModalComponent, {
+    const ref = this.dialogService.open(PessoasEmpresasModalComponent, {
       header: 'Selecione a Pessoa',
       width: '70%'
     });
 
-
-
     ref.onClose.subscribe((pessoa) => {
-      console.log("ESTA NO SHOWPESSOAS SOCIOS-modal.componensts VOLTOUUUU")
+
+      if (pessoa.fisicaJuridica ==  'J'){
+        this.cpfCnpj = pessoa.dadosPjGeral.cnpj
+        this.cpfCnpj = this.cpfCnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5")
+      } else {
+        this.cpfCnpj = pessoa.dadosPfGeral.cpf
+        this.cpfCnpj = this.cpfCnpj.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4")
+      }
 
       this.resourceForm.patchValue({
-        pessoas: {
+        idPessoas: {
+          dadosPf:{
+            cpfCnpj: this.cpfCnpj,
+            cpf: this.cpfCnpj,
+          },
           id: pessoa.id,
           nome: pessoa.nome,
-
-          dadosPessoa:{
-              documento: pessoa.dadosPf.cpf
-          }
-        }
+        },
+        idPessoa: pessoa.id
       });
     });
   }
 
+
   // No edit retorna os dados aqui.
   ngOnInit(){
-      this.sociosService.sociosEditSubscribeId(
+    this.sociosService.sociosEditSubscribeId(
       resources => {
-        this.socioId = resources.id
+
+        if (resources.pessoasPessoas.dadosPjGeral){
+          this.cpfCnpj = resources.pessoasPessoas.dadosPjGeral.cnpj.toString();
+          this.cpfCnpj = this.cpfCnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5")
+        } else {
+          this.cpfCnpj = resources.pessoasPessoas.dadosPfGeral.cpf.toString();
+          this.cpfCnpj = this.cpfCnpj.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4")
+        }
+
+        this.socioId = resources.id;
+
         this.resourceForm.patchValue({
-          tiposVinculosSocios:
-          this.formBuilder.group({
-          descricao:[null],
-          id: [null, [Validators.required]],
-        }),
           id: resources.id,
-          participacao: resources.participacao
-        })
+          participacao: resources.participacao,
+          idEmpresa: resources.pessoasEmpresas.id,
+          idPessoa: resources.pessoasPessoas.id,
+
+          tiposVinculosEmpresas:{
+            id: resources.tiposVinculosEmpresas.id,
+            descricao: resources.tiposVinculosEmpresas.descricao
+          },
+
+          idPessoas:{
+            id: resources.pessoasPessoas.id,
+            nome: resources.pessoasPessoas.nome,
+            dadosPf:{
+              cpfCnpj: this.cpfCnpj,
+              cpf: this.cpfCnpj,
+            }
+          },
+
+          idEmpresas: this.formBuilder.group({
+            dadosPj: this.formBuilder.group({
+                cnpj: [(<HTMLSelectElement>document.getElementById('cnpj')).value],
+              }),
+            id: [(<HTMLSelectElement>document.getElementById('id')).value],
+            nome: [(<HTMLSelectElement>document.getElementById('nome')).value],
+          })
+        });
       }
     )
 
     if(this.env.currentActionGlobal === "DELETE"){
-      (<HTMLSelectElement>document.getElementById('tipoVinculoSocioDdw')).disabled = true;
-      (<HTMLSelectElement>document.getElementById('socio')).disabled = true;
-
+      (<HTMLSelectElement>document.getElementById('tipoVinculoEmpresaDdw')).disabled = true;
+      (<HTMLSelectElement>document.getElementById('participacao')).disabled = true;
     }
-
   }
 
 }

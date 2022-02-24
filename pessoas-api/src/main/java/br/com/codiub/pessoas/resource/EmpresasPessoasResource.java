@@ -23,12 +23,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.codiub.pessoas.Input.ContatosInput;
-import br.com.codiub.pessoas.Input.DocumentosInput;
 import br.com.codiub.pessoas.Input.EmpresasPessoasInput;
-import br.com.codiub.pessoas.entity.Contatos;
 import br.com.codiub.pessoas.entity.EmpresasPessoas;
-import br.com.codiub.pessoas.entity.Enderecos;
 import br.com.codiub.pessoas.filter.EmpresasPessoasFilter;
 import br.com.codiub.pessoas.repository.EmpresasPessoasRepository;
 import br.com.codiub.pessoas.service.EmpresasPessoasService;

@@ -11,9 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import br.com.codiub.pessoas.Input.ContatosInput;
 import br.com.codiub.pessoas.Input.EmpresasPessoasInput;
-import br.com.codiub.pessoas.entity.Contatos;
 import br.com.codiub.pessoas.entity.EmpresasPessoas;
 import br.com.codiub.pessoas.entity.Pessoas;
 import br.com.codiub.pessoas.entity.TiposVinculosEmpresas;

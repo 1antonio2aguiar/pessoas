@@ -6,8 +6,6 @@ import { HttpHeaders } from '@angular/common/http';
 import { EmpresasPessoas } from 'src/app/shared/models/empresas-pessoas';
 import EmpresasPessoasOutput from 'src/app/shared/models/empresas-pessoas-output';
 
-import { Enderecos } from './../../../shared/models/enderecos';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -35,8 +33,6 @@ export class SociosService extends BaseResourceService<EmpresasPessoas>{
 
   // Busca lista de socios da empresa
   listAll(id): Promise<any> {
-
-    //console.log(environment.apiUrl + 'pessoasGeral')
 
     return this.http.get<EmpresasPessoas[]>(this.apiPath + '/findByIdEmpresaId?codigo='+id)
       .toPromise()
@@ -74,6 +70,7 @@ export class SociosService extends BaseResourceService<EmpresasPessoas>{
     .then(response => response);
   }
 
+
   updateSocio(resource): Promise<any> {
     return this.http.put(this.apiPath + '/' + JSON.parse(resource).id, resource, { headers: this.header })
     .toPromise()
@@ -87,3 +84,4 @@ export class SociosService extends BaseResourceService<EmpresasPessoas>{
   }
 
 }
+

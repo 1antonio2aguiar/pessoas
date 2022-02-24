@@ -45,10 +45,10 @@ export class ContatosModalComponent extends BaseResourceFormComponent<Contatos> 
     this.loadTipoContato();
     this.buildResourceForm(); /*limpa o formulario/resourceForm */
 
-    if (this.env.currentActionGlobal != "DELETE"){
-      this.env.botaoOnOf = false;
-    } else {
+    if (this.env.currentActionGlobal == "DELETE" || this.env.currentActionGlobal == "EDIT"){
       this.env.botaoOnOf = true;
+    } else {
+      this.env.botaoOnOf = false;
     }
 
   }

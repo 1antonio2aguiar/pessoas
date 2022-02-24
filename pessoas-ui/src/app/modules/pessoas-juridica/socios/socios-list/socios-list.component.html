@@ -34,15 +34,15 @@
             </td>
 
             <td>
-              {{socios.pessoasPessoa.nome}}
+              {{socios.pessoasPessoas.nome}}
             </td>
 
             <td>
-              <span *ngIf="socios.pessoasPessoa.fisicaJuridica === 'F'">
-                {{socios.pessoasPessoa.dadosPfGeral.cpf | cpf}}
+              <span *ngIf="socios.pessoasPessoas.fisicaJuridica === 'F'">
+                {{socios.pessoasPessoas.dadosPfGeral.cpf | cpf}}
               </span>
-              <span *ngIf="socios.pessoasPessoa.fisicaJuridica === 'J'">
-                {{socios.pessoasPessoa.dadosPjGeral.cnpj | cnpj}}
+              <span *ngIf="socios.pessoasPessoas.fisicaJuridica === 'J'">
+                {{socios.pessoasPessoas.dadosPjGeral.cnpj | cnpj}}
               </span>
             </td>
 

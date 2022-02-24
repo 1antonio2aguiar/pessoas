@@ -16,6 +16,8 @@ public class DadosPjInput {
 	private String microEmpresa;
 	private String conjuge;
 	
+	private String cpfCnpj;
+	
 	private TiposEmpresas tiposEmpresas = new TiposEmpresas();
 	
 }

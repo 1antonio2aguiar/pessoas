@@ -23,6 +23,8 @@ public class DadosPfInput {
 	private String pai;
 	//private Long estadoCivil;
 	
+	private String cpfCnpj;
+	
 	private Etnias etnias;
 	private TiposEstadosCivis tiposEstadosCivis = new TiposEstadosCivis();
 	private DistritosInput distritos;

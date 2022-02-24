@@ -50,6 +50,7 @@ export class SociosListComponent extends BaseResourceListComponent<EmpresasPesso
     });
   }
 
+
   // Abre Modal socios - edita socio é o mesmo HTML, mas aqui vem com parametro id do socio
   showsociosModalEdit(id) {
     this.env.currentActionGlobal = "EDIT";
@@ -88,19 +89,15 @@ export class SociosListComponent extends BaseResourceListComponent<EmpresasPesso
 
   }
 
-  // Retorna lista de socios e rederiza HTML da lista
+  // Retorna lista de empresas e rederiza HTML da lista
   loadListSocios(){
-    //console.log("1 - ATUALZANDO foi no loadListSocios " );
     this.sociosService.sociosChangeSubscribe(
-
       resources => {
-        if(resources === null){
-          console.log("2  - ATUALZANDO foi no loadListSocios ", resources );
-          this.resources = resources;
-        } else {
-          console.log("Não há Sócios para esta empresa! ");
-        }
+        //console.log("2  - ATUALZANDO foi no loadListSocios ", resources );
+        this.resources = resources;
+
       }
     )
   }
+
 }

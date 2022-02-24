@@ -15,7 +15,7 @@ export default interface PessoasOutput {
 
   tiposPessoas: TiposPessoas,
 
-  dadosPf: DadosPf,
+  dadosPfGeral: DadosPf,
   dadosPjGeral: DadosPjGeral,
 
 
