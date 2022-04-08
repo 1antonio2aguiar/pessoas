@@ -7,15 +7,17 @@ export const environment = {
   production: false,
   apiUrl: 'http://localhost:8082/',
   //apiUrlKripton: 'http://localhost:8081/',
-  apiUrlKripton: 'https://app3.codiub.com.br/kripton-api/',
+  apiUrlKripton: 'http://app3.codiub.com.br/kripton-api/',
   apiUrlEnderecos: 'http://localhost:8080/',
   sistemaId: '1',
 
   currentActionGlobal: "",
   botaoOnOf: true,
   tabPanelOnOff: true,
+  fisicaJuridica: "",
 
 };
+
 
 /*
  * For easier debugging in development mode, you can import the following file

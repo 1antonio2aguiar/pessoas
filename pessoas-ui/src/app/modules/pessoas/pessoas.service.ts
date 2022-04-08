@@ -31,21 +31,20 @@ export class PessoasService extends BaseResourceService<Pessoas> {
     .append('size', filtro.itensPorPagina.toString())
     .append('fisicaJuridica', 'F');
 
-    //console.log("vamos ver se aqui que passa!!", params)
+    return this.http.get<any>(
+      this.apiPath,
+        {params}
+    )
+    .toPromise()
+    .then(response => {
+      const pessoas = response.content;
+      const resultado = {
+        pessoas,
+        total: response.totalElements
+      };
 
-     return this.http.get<any>(
-       this.apiPath,
-         {params}
-     )
-     .toPromise()
-     .then(response => {
-       const pessoas = response.content;
-       const resultado = {
-         pessoas,
-         total: response.totalElements
-       };
-       return resultado;
-     });
+      return resultado;
+    });
   }
 
   listAll(): Promise<any> {

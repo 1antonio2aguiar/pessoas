@@ -48,6 +48,7 @@ export class DocumentosService extends BaseResourceService<Documentos>{
   }
 
   documentosChangeSubscribe(callBack:(documentos: Documentos[]) => void){
+    console.log("ESTA NO SERVICE ")
     this.documentosEventHendler.subscribe(callBack);
   }
 

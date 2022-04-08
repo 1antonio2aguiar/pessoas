@@ -13,6 +13,7 @@ public class PessoasFilter {
 	private Date dataCadastro;
 	private Date dataRegistro;
 	private String situacao;
+	private String cpfCnpj;
 	private TiposPessoasFilter tiposPessoasFilter = new TiposPessoasFilter();
 	
 	private SituacoesFilter situacoesFilter = new SituacoesFilter();

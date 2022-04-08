@@ -121,9 +121,10 @@ public class PessoasResource {
 	// Aqui busca os dados para gerar a lista.
 	@GetMapping()
 	public Page<Pessoas> pesquisar(PessoasFilter pessoasFilter, Pageable pageable) {
+		
 		return pessoasRepository.filtrar(pessoasFilter, pageable);
+		
 	}
-	
 	
 	@DeleteMapping("/{codigo}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)

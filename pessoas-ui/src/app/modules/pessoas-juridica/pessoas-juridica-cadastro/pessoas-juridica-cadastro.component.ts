@@ -215,12 +215,11 @@ export class PessoasJuridicaCadastroComponent extends BaseResourceFormComponent<
     if($event == 1){
       this.env.tabPanelOnOff = true;
       this.resourceForm.patchValue({ observacao: this.env.tabPanelOnOff });
-      console.log('TA NO IF = 1 ', this.env);
+      //console.log('TA NO IF = 1 ', this.env);
     } else {
       this.env.tabPanelOnOff = false;
       this.resourceForm.patchValue({ observacao: this.env.tabPanelOnOff });
-      console.log('TA NO ELSE ', this.env);
+      //console.log('TA NO ELSE ', this.env);
     }
   }
-
 }

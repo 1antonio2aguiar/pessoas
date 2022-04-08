@@ -4,6 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { PaginaNaoEncontradaComponent } from './core/pagina-nao-encontrada.component';
 
 const routes: Routes = [
+
+  { path: 'pessoas-consulta', loadChildren: () => import('./modules/pessoas-consulta/pessoas-consulta.module').then(m => m.PessoasConsultaModule)},
   { path: 'pessoas-juridica', loadChildren: () => import('./modules/pessoas-juridica/pessoas-juridica.module').then(m => m.PessoasJuridicaModule)},
 	{ path: 'pessoas',  loadChildren: () => import('./modules/pessoas/pessoas.module').then(m => m.PessoasModule)},
 	{ path: 'situacoes',  loadChildren: () => import('./modules/situacoes/situacoes.module').then(m => m.SituacoesModule)},

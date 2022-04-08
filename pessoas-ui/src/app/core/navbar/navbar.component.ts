@@ -56,7 +56,7 @@ export class NavbarComponent implements OnInit {
         label: 'Consultas',
         icon: 'pi pi-fw pi-question',
         items: [
-          //TELA
+          {label: 'Pessoas', routerLink: 'pessoas-consulta', command: (event) => {this.display = false; } },
         ]
       },
       {

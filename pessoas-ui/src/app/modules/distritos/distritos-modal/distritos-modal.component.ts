@@ -33,7 +33,7 @@ export class DistritosModalComponent extends BaseResourceListComponent<Distritos
     this.filtro.pagina = pagina;
     this.distritosService.pesquisar(this.filtro)
       .then(resultado => {
-        console.log(resultado);
+        //console.log(resultado);
 
         this.loading = false;
         this.filtro.totalRegistros = resultado.total;

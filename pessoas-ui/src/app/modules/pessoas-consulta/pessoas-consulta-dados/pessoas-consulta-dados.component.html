@@ -1,0 +1,202 @@
+ <!--{{resourceForm.value | json}}
+ {{resourceForm.get('fisicaJuridica').value}} -->
+
+<!--<p-panel header="Consulta Pessoa: "> -->
+<p-panel [header]="'CONSULTA DADOS DE :'+ ' ' + resourceForm.get('nome').value">
+  <form [formGroup]="resourceForm" (submit)="submitForm()" >
+    <div class="p-grid ui-fluid" style="margin-top: 5px;">
+
+      <div class="p-col-12 p-md-1 p-lg-1">
+        <label for="nome" >Id</label>
+        <input id="id"
+          type="text"
+          size="100"
+          pInputText formControlName="id"
+          style="font-weight: bold;"
+          disabled="true">
+      </div>
+
+      <div class="p-col-12 p-md-5 p-lg-5">
+        <label for="nome" >Nome</label>
+        <input id="nome" type="text" pInputText formControlName="nome" disabled="true" style="font-weight: bold;">
+      </div>
+
+      <div class="p-col-12 p-md-2 p-lg-2 container"
+        *ngIf="resourceForm.get('fisicaJuridica').value === 'F'; else cnpj">
+        <label for="nome">C.P.F</label>
+        <input
+          name="cpfCnpj"
+          id="cpfCnpj"
+          type="text"
+          pInputText
+          formControlName="cpfCnpj"
+          style="font-weight: bold;"
+          [(ngModel)]="myModel"
+          [textMask]="{mask: maskCpf}"
+          disabled="true"
+        >
+      </div>
+
+      <ng-template #cnpj>
+        <label for="nome">C.N.P.J</label>
+        <input
+          name="cpfCnpj"
+          id="cpfCnpj"
+          type="text"
+          pInputText
+          formControlName="cpfCnpj"
+          style="font-weight: bold;"
+          [(ngModel)]="myModel"
+          [textMask]="{mask: maskCnpj}"
+          disabled="true">
+      </ng-template>
+
+      <div class="ui-g-2 ui-md-2 ui-fluid">
+        <label for="dataRegistro" >Data Nascimento</label>
+        <p-calendar
+          name="dataRegistro"
+          dateFormat="dd/mm/yy"
+          [inline]="false"
+          [readonlyInput]="true"
+          formControlName="dataRegistro"
+          [locale]="ptBrLocale"
+          disabled="true">
+        </p-calendar>
+      </div>
+
+      <div class="p-col-12 p-md-2 p-lg-2" formGroupName="tiposPessoas">
+        <label for="tipoPessoa" >Tipo pessoa</label>
+        <input id="tipoPessoa" type="text" pInputText formControlName="descricao"
+        disabled="true" style="font-weight: bold;">
+      </div>
+
+      <div class="p-col-12 p-md-2 p-lg-2" formGroupName="dadosPf">
+        <label for="estadoCivil" >Estado Cívil</label>
+        <span formGroupName="tiposEstadosCivis">
+          <input
+            id="estadoCivil"
+            type="text"
+            pInputText
+            formControlName="descricao"
+            disabled="true"
+            style="font-weight: bold;"
+          >
+        </span>
+      </div>
+
+      <div class="p-col-12 p-md-2 p-lg-2">
+        <label for="genero">Genero</label>
+        <div [ngSwitch]="resourceForm.get('dadosPf').get('sexo').value">
+          <input *ngSwitchCase="'M'" value="MASCULINO" type="text" pInputText disabled="true" style="font-weight: bold;">
+          <input *ngSwitchCase="'F'" value="FEMININO" type="text" pInputText disabled="true" style="font-weight: bold;">
+          <input *ngSwitchDefault value="" type="text" pInputText disabled="true" style="font-weight: bold;">
+        </div>
+      </div>
+
+      <div class="p-col-12 p-md-2 p-lg-2">
+        <label for="raca">Raça</label>
+        <div [ngSwitch]="resourceForm.get('dadosPf').get('raca').value">
+          <input *ngSwitchCase="1" value="BRANCA" type="text" pInputText disabled="true" style="font-weight: bold;">
+          <input *ngSwitchCase="2" value="NEGRO" type="text" pInputText disabled="true" style="font-weight: bold;">
+          <input *ngSwitchCase="3" value="PARDA" type="text" pInputText disabled="true" style="font-weight: bold;">
+          <input *ngSwitchCase="4" value="AMARELO" type="text" pInputText disabled="true" style="font-weight: bold;">
+          <input *ngSwitchCase="5" value="INDÍGENA" type="text" pInputText disabled="true" style="font-weight: bold;">
+          <input *ngSwitchDefault value="" type="text" pInputText disabled="true" style="font-weight: bold;">
+        </div>
+      </div>
+
+      <div class="p-col-12 p-md-2 p-lg-2">
+        <label for="cor">Cor</label>
+        <div [ngSwitch]="resourceForm.get('dadosPf').get('cor').value">
+          <input *ngSwitchCase="1" value="BRANCA" type="text" pInputText disabled="true" style="font-weight: bold;">
+          <input *ngSwitchCase="2" value="NEGRO" type="text" pInputText disabled="true" style="font-weight: bold;">
+          <input *ngSwitchCase="3" value="PARDA" type="text" pInputText disabled="true" style="font-weight: bold;">
+          <input *ngSwitchCase="4" value="AMARELO" type="text" pInputText disabled="true" style="font-weight: bold;">
+          <input *ngSwitchCase="5" value="INDÍGENA" type="text" pInputText disabled="true" style="font-weight: bold;">
+          <input *ngSwitchDefault value="" type="text" pInputText disabled="true" style="font-weight: bold;">
+        </div>
+      </div>
+
+      <div class="p-col-12 p-md-2 p-lg-2" formGroupName="dadosPf">
+        <label for="etnia" >Etinia</label>
+        <span formGroupName="etnias">
+          <input
+            id="etnias"
+            type="text"
+            pInputText
+            formControlName="descricao"
+            disabled="true"
+            style="font-weight: bold;"
+          >
+        </span>
+      </div>
+
+      <div class="p-col-12 p-md-2 p-lg-2">
+        <label for="recebeBf">Recebe Bolsa Familia?</label>
+        <div [ngSwitch]="resourceForm.get('dadosPf').get('recebeBf').value">
+          <input *ngSwitchCase="'S'" value="SIM" type="text" pInputText disabled="true" style="font-weight: bold;">
+          <input *ngSwitchCase="'N'" value="NÃO" type="text" pInputText disabled="true" style="font-weight: bold;">
+          <input *ngSwitchDefault value="" type="text" pInputText disabled="true" style="font-weight: bold;">
+        </div>
+      </div>
+
+      <div class="p-col-12 p-md-6 p-lg-6" formGroupName="dadosPf">
+        <label for="localNascimentoList">Local Nascimento</label>
+        <span formGroupName="distritos">
+          <input
+            type="text"
+            style="font-weight: bold;"
+            pInputText
+            formControlName="nome" disabled="true"
+          >
+        </span>
+      </div>
+
+      <div class="p-col-12 p-md-6 p-lg-6" formGroupName="dadosPf">
+        <label for="nome" >Nome Social</label>
+        <input id="nomeSocial" type="text" size="80" pInputText formControlName="nomeSocial"
+        disabled="true" style="font-weight: bold;"
+        >
+      </div>
+
+      <div class="p-col-12 p-md-6 p-lg-6" formGroupName="dadosPf">
+        <label for="nome" >Nome da Mãe</label>
+        <input id="nomeMae" type="text" size="80" pInputText formControlName="mae" disabled="true" style="font-weight: bold;">
+      </div>
+
+      <div class="p-col-12 p-md-6 p-lg-6" formGroupName="dadosPf">
+        <label for="nome" >Nome do Pai</label>
+        <input id="nomePai" type="text" size="80" pInputText formControlName="pai" disabled="true" style="font-weight: bold;">
+      </div>
+
+      <div class="p-col-12 p-md-9 p-lg-9">
+        <label for="observacao" >Observação</label>
+        <input id="observacao" type="text" size="30" pInputText formControlName="observacao"
+          disabled="true" style="font-weight: bold;"
+        >
+      </div>
+
+      <div class="p-col-12 p-md-1 p-lg-1" formGroupName="dadosPf">
+        <label for="nome" >Cartão SUS</label>
+        <input id="cartaoSus" type="text" size="80" pInputText formControlName="cartaoSus"
+          disabled="true" style="font-weight: bold;"
+        >
+      </div>
+
+      <div class="p-col-12 p-md-2 p-lg-2" formGroupName="situacoes">
+        <label for="situacao" >Situação</label>
+        <input id="situacao" type="text" pInputText formControlName="descricao"
+        disabled="true" style="font-weight: bold;">
+      </div>
+    </div>
+
+    <div class="p-grid ui-fluid" style="margin-top: 5px;">
+      <div class="p-col-12 p-md-2 p-lg-2">
+          <button pButton type="button" label="Voltar para lista"
+          routerLink="/pessoas-consulta"  class="ui-button-danger"></button>
+        </div>
+    </div>
+
+  </form>
+</p-panel>
+

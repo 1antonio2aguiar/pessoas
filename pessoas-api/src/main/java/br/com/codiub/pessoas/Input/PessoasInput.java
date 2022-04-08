@@ -11,6 +11,7 @@ public class PessoasInput {
 	private Long id;
 	private String nome;
 	private String fisicaJuridica;
+	private String cpfCnpj;
 	private String usuario;
 	private String observacao;
 	private Long mesEnvioSicom;
@@ -23,6 +24,7 @@ public class PessoasInput {
 	private Situacoes situacoes = new Situacoes();
 	private TiposPessoas tiposPessoas = new TiposPessoas();
 	private DadosPfInput dadosPf;
+	
 	
 	public String getNome() {
 		return nome == null ? null :nome.toUpperCase();

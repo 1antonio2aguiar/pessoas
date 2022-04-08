@@ -38,7 +38,7 @@ export class EnderecosService extends BaseResourceService<Enderecos>{
 
   // Busca lista de enderecos por pessoa
   listAll(pessoa): Promise<any> {
-    //console.log("ESTA NO SERVICE LIST ALL")
+    console.log("ESTA NO SERVICE LIST ALL")
     return this.http.get<Enderecos[]>(this.apiPath + '/findByPessoasId?codigo='+pessoa)
       .toPromise()
       .then(response => {
@@ -52,6 +52,7 @@ export class EnderecosService extends BaseResourceService<Enderecos>{
 
   // Busca endereco por ID
   buscaEndereco(enderecoId): Promise<any> {
+    console.log("ENTROU AQUI BUSCA ENDERECO!!!")
     return this.http.get<Enderecos>(this.apiPath + '/'+enderecoId)
       .toPromise()
       .then(response => {
@@ -60,7 +61,7 @@ export class EnderecosService extends BaseResourceService<Enderecos>{
   }
 
   buscaEnderecoId(enderecoId): Promise<any> {
-    //console.log("VAMOS VER SE AQUI ELE VEM!! ", enderecoId)
+    console.log("VAMOS VER SE AQUI ELE VEM!! ", enderecoId)
     return this.http.get<Enderecos>(this.apiPath + '/'+enderecoId)
       .toPromise();
   }

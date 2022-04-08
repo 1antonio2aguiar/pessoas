@@ -26,6 +26,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fullcalendar/core": "^5.8.0",
     "angular-imask": "^6.1.0",
+    "angular2-text-mask": "^9.0.0",
     "chart.js": "^3.4.1",
     "moment": "^2.29.1",
     "ngx-currency": "^2.5.2",

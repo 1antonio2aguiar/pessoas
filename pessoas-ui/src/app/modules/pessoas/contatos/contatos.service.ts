@@ -62,12 +62,7 @@ export class ContatosService extends BaseResourceService<Contatos>{
     });
   }
 
-  /*buscaContatoId(contatoId): Promise<any> {
-    return this.http.get<Contatos>(this.apiPath + '/'+contatoId)
-      .toPromise();
-  }*/
-
-  contatosEditSubscribeId(callBack:(contatos: ContatosOutput) => void){
+   contatosEditSubscribeId(callBack:(contatos: ContatosOutput) => void){
     this.contatosEventHendlerId.subscribe(callBack);
   }
 

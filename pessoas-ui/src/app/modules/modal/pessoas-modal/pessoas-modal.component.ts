@@ -36,7 +36,7 @@ export class PessoasModalComponent extends BaseResourceListComponent<PessoasJuri
   pesquisar(pagina = 0) {
     this.filtro.pagina = pagina;
 
-    console.log("ESTA NO pesquisar pessoas-modal.componensts ")
+    //console.log("ESTA NO pesquisar pessoas-modal.componensts ")
 
     this.pessoasModalService.pesquisar(this.filtro)
       .then(resultado => {

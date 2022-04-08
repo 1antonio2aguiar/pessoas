@@ -7,9 +7,9 @@ public class CepsFilter {
   
 	private String cep;
 	private Long id;
-	private String identificacao;
-	private Long numeroFim;
 	private Long numeroIni;
+	private Long numeroFim;
+	private String identificacao;
 	private String usuario;
 
 }
